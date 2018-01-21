@@ -1,0 +1,36 @@
+#This file is for useful shell aliases
+
+alias rmpyc="find . -name '*.pyc' -delete"
+alias chist="history |
+    awk '{a[\$2]++}END{for(i in a) {print a[i] \" \" i}}' |
+    sort -rn |
+    head"
+
+alias fucking="sudo"
+
+alias gcl="git clone"
+alias gh="git rev-parse HEAD"
+alias gs="git status"
+alias gco="git checkout"
+alias gst="git stash"
+alias gstp="git stash pop"
+alias gb="git branch"
+alias gd="git diff"
+alias gadd="git add"
+alias gcm="git commit -m"
+alias gcam="git commit -am"
+alias gl="git pull"
+alias gp="git push"
+alias gshow="git show"
+alias glg="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
+alias glgp="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit -p"
+
+alias py="python"
+alias github="cr $(git config --get remote.origin.url)"
+alias e="emacs -nw --load ~/developer-bootstrap/.emacs"
+
+count_lines_of_code() {
+  find . -name "*.$1" | xargs wc -l
+}
+
+alias count_lines="count_lines_of_code"

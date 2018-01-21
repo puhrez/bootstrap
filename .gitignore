@@ -1,0 +1,4 @@
+*.dylib
+.DS_STORE
+keys
+chatid_keys
