@@ -45,6 +45,7 @@
 (require 'cider)
 (require 'rust-mode)
 (require 'flycheck)
+(require 'ng2-mode)
 
 ;; key bindings
 (when (fboundp 'windmove-default-keybindings)
@@ -94,38 +95,58 @@
 (add-hook 'rust-mode-hook 'cargo-minor-mode)
 (add-to-list 'auto-mode-alist '("\\.jsx\\'" . jsx-mode))
 (autoload 'jsx-mode "jsx-mode" "JSX mode" t)
+(add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
 
 ;; misc
 (autoload 'markdown-mode "markdown-mode"
   "Major mode for editing Markdown files" t)
-
+(ac-config-default)
+(setq web-mode-enable-auto-pairing t)
+(setq web-mode-enable-css-colorization t)
+(setq web-mode-enable-block-face t)
+(setq web-mode-enable-part-face t)
+(setq web-mode-enable-comment-keywords t)
+(setq web-mode-enable-current-element-highlight t)
+(setq web-mode-enable-current-column-highlight t)
 (setq company-idle-delay 0.2)
 (setq company-minimum-prefix-length 1)
 (setq racer-cmd "/Users/micperez/.cargo/bin/racer")
 (setq racer-rust-src-path "/usr/local/src/rust/src/")
 (setq company-tooltip-align-annotations t)
-
+(setq backup-directory-alist
+      `((".*" . ,"~/.emacs.d/backup/")))
 (setq python-shell-interpreter "ipython"
       python-shell-interpreter-args "-i --simple-prompt")
 
-(with-eval-after-load 'company
-  (add-to-list 'company-backends 'company-elm))
 (add-hook 'elm-mode-hook #'elm-oracle-setup-completion)
 (eval-after-load 'company
   '(push 'company-jedi company-backends))
-(add-hook 'elm-mode-hook
-          (lambda ()
-            (setq company-backends '(company-elm))))
+
+(defun setup-tide-mode ()
+  (interactive)
+  (tide-setup)
+  (flycheck-mode +1)
+  (setq flycheck-check-syntax-automatically '(save mode-enabled))
+  (eldoc-mode +1)
+  (tide-hl-identifier-mode +1)
+  ;; company is an optional dependency. You have to
+  ;; install it separately via package-install
+  ;; `M-x package-install [ret] company`
+  (company-mode +1))
+
+;; aligns annotation to the right hand side
+(setq company-tooltip-align-annotations t)
+
+;; formats the buffer before saving
+(add-hook 'before-save-hook 'tide-format-before-save)
+
+(add-hook 'typescript-mode-hook #'setup-tide-mode)
+
 
 (with-eval-after-load 'flycheck
   '(add-hook 'flycheck-mode-hook #'flycheck-elm-setup))
 (add-hook 'after-init-hook #'global-flycheck-mode)
-(with-eval-after-load 'company
-  (add-to-list 'company-backends 'company-elm))
-(add-hook 'elm-mode-hook #'elm-oracle-setup-completion)
-(add-hook 'elm-mode-hook
-	  (lambda ()
-	                (setq company-backends '(company-elm))))
+
 (eval-after-load "auto-complete"
   '(progn
      (add-to-list 'ac-modes 'cider-mode)
