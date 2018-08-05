@@ -27,9 +27,10 @@ alias glgp="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset
 
 alias py="python"
 alias github="cr $(git config --get remote.origin.url)"
-alias e="emacs -nw --load ~/developer-bootstrap/.emacs"
+alias e="emacs -nw --load ~/bootstrap/.emacs"
 alias ipy="python -c 'import IPython; IPython.terminal.ipapp.launch_new_instance()'"
 alias serve="python -m SimpleHTTPServer 1993"
+alias xcp="xclip -selection c"
 
 count_lines_of_code() {
   find . -name "*.$1" | xargs wc -l

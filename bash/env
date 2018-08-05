@@ -1,15 +1,5 @@
 #This file is for proper path environment
 
 export EDITOR='emacs -nw --load ~/developer-bootstrap/.emacs'
-export PATH=/usr/local/bin:$PATH
-export PATH=$HOME/bin:$PATH
-export PATH=/usr/local/sbin:$PATH
-export PATH=/usr/local/git/bin:$PATH
-export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/latest/bin
-export PATH=$PATH:/Users/micperez/.cargo/bin
-export PATH=$PATH:$HOME/go/bin/
-export RUST_SRC_PATH=/usr/local/src/rust/src
 export HISTTIMEFORMAT="%h/%d - %H:%M:%S "
-export WORKON_HOME=$HOME/envs
-export VIRTUALENVWRAPPER_PYTHON=/usr/local/bin/python2.7
-source /usr/local/bin/virtualenvwrapper.sh
+export PATH=$HOME/bin:$PATH
